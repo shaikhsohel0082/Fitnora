@@ -1,0 +1,176 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--gradient-dark);
+}
+
+.heroBackground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.heroVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+}
+
+.heroBackground img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  /* background: linear-gradient(135deg, hsl(220 20% 8% / 0.8), hsl(220 20% 8% / 0.95)); */
+  z-index: 1;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  max-width: 1200px;
+  animation: fadeInUp 1s ease-out;
+}
+
+.heroTitle {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+  text-shadow: var(--shadow-primary);
+}
+
+.heroSubtitle {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 3rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heroCta {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.primaryButton {
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  background: var(--gradient-primary);
+  color: hsl(var(--primary-foreground));
+  box-shadow: var(--shadow-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 60px hsl(142 76% 56% / 0.5);
+}
+
+.secondaryButton {
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: 2px solid hsl(var(--secondary));
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  background: transparent;
+  color: hsl(var(--secondary));
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.secondaryButton:hover {
+  background: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-secondary);
+}
+
+.floatingParticles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  opacity: 0.3;
+  animation: float 20s infinite;
+}
+
+.particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+.particle:nth-child(2) { left: 30%; animation-delay: 2s; }
+.particle:nth-child(3) { left: 50%; animation-delay: 4s; }
+.particle:nth-child(4) { left: 70%; animation-delay: 6s; }
+.particle:nth-child(5) { left: 90%; animation-delay: 8s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-100vh) translateX(20px);
+  }
+  50% {
+    transform: translateY(-200vh) translateX(-20px);
+  }
+  75% {
+    transform: translateY(-100vh) translateX(30px);
+  }
+}
+
+@media (max-width: 768px) {
+  .heroCta {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+    max-width: 300px;
+  }
+}

@@ -1,0 +1,30 @@
+.pageContainer {
+  background: hsl(var(--background));
+  min-height: 100vh;
+  position: relative;
+}
+.whatsAppWrapper {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #25d366, #075e54);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  cursor: pointer;
+  z-index: 2;
+}
+.whatsAppWrapper:hover {
+  opacity: 0.8;
+}
+@media (max-width: 700px) {
+  .whatsAppWrapper {
+    height: 2rem;
+    width: 2rem;
+    font-size: 1.5rem;
+  }
+}

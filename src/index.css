@@ -1,0 +1,69 @@
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+:root {
+  /* Dark fitness theme - FitFuel Muesli */
+  --background: 220 20% 8%;
+  --foreground: 0 0% 98%;
+
+  --card: 220 18% 12%;
+  --card-foreground: 0 0% 98%;
+
+  --popover: 220 18% 12%;
+  --popover-foreground: 0 0% 98%;
+
+  /* Neon green primary - energy & health */
+  --primary: 142 76% 56%;
+  --primary-foreground: 220 20% 8%;
+  --primary-glow: 142 76% 66%;
+
+  /* Orange secondary - motivation & warmth */
+  --secondary: 28 92% 58%;
+  --secondary-foreground: 220 20% 8%;
+  --secondary-glow: 28 92% 68%;
+
+  --muted: 220 15% 18%;
+  --muted-foreground: 0 0% 65%;
+
+  --accent: 142 76% 56%;
+  --accent-foreground: 220 20% 8%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 220 15% 20%;
+  --input: 220 15% 20%;
+  --ring: 142 76% 56%;
+
+  --radius: 0.75rem;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, hsl(142 76% 56%), hsl(142 76% 66%));
+  --gradient-secondary: linear-gradient(135deg, hsl(28 92% 58%), hsl(28 92% 68%));
+  --gradient-dark: linear-gradient(180deg, hsl(220 20% 8%), hsl(220 20% 5%));
+  
+  /* Shadows with neon glow */
+  --shadow-primary: 0 0 40px hsl(142 76% 56% / 0.3);
+  --shadow-secondary: 0 0 40px hsl(28 92% 58% / 0.3);
+  --shadow-card: 0 10px 40px hsl(220 20% 5% / 0.5);
+
+  /* Transitions */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-color: hsl(var(--border));
+}
+
+body {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

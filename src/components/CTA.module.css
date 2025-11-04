@@ -1,0 +1,131 @@
+.cta {
+  padding: 8rem 2rem;
+  background: linear-gradient(135deg, hsl(220 20% 8%), hsl(220 20% 5%));
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaBackground {
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  background: 
+    radial-gradient(circle at 20% 50%, hsl(142 76% 56% / 0.3), transparent 50%),
+    radial-gradient(circle at 80% 50%, hsl(28 92% 58% / 0.3), transparent 50%);
+}
+
+.ctaContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.ctaTitle {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.ctaSubtitle {
+  font-size: 1.5rem;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+.ctaButton {
+  padding: 1.5rem 4rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  background: var(--gradient-secondary);
+  color: hsl(var(--secondary-foreground));
+  box-shadow: var(--shadow-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaButton::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.ctaButton:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.ctaButton:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 0 80px hsl(28 92% 58% / 0.6);
+}
+
+.features {
+  display: none;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: hsl(var(--foreground));
+  font-size: 1.1rem;
+}
+
+.featureIcon {
+  font-size: 1.5rem;
+  color: hsl(var(--primary));
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 20px hsl(142 76% 56% / 0.5);
+  }
+  to {
+    text-shadow: 0 0 40px hsl(142 76% 56% / 0.8);
+  }
+}
+
+@media (max-width: 768px) {
+  .cta {
+    padding: 5rem 1.5rem;
+  }
+
+  .features {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .ctaButton {
+    padding: 1.25rem 3rem;
+    font-size: 1.1rem;
+    width: 100%;
+    max-width: 350px;
+  }
+}
