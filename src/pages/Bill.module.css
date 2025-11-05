@@ -1,0 +1,146 @@
+/* Layout */
+.billContainer {
+  padding: 28px;
+  background: hsl(var(--background));
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.billHeader {
+  width: min(1000px, 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: 20px;
+}
+
+/* small metadata */
+.metaRow {
+  margin-top: 6px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.smallInput {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Card */
+.card {
+  background: #fff;
+  width: min(1000px, 100%);
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  margin-bottom: 18px;
+}
+
+/* header buttons */
+.logoutBtn {
+  background: hsl(var(--destructive));
+  color: hsl(var(--destructive-foreground));
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* customer inputs */
+.card h3 {
+  margin: 0 0 8px 0;
+}
+.row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.card input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  flex: 1;
+  font-size: 14px;
+}
+
+/* table */
+.tableWrap {
+  overflow-x: auto;
+}
+.billTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.billTable th, .billTable td {
+  border: 1px solid #bbb;
+  padding: 8px;
+  text-align: left;
+  vertical-align: middle;
+}
+.billTable thead th {
+  background: #f3f3f3;
+  font-weight: 700;
+}
+
+/* controls */
+.rowActions {
+  margin-top: 10px;
+}
+.addBtn, .removeBtn, .previewBtn {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.addBtn { background: #0b74ff; color: white; }
+.removeBtn { background: #e04848; color: #fff; }
+.previewBtn { background: #159957; color: #fff; }
+
+/* summary */
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.actionGroup {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.totalBox {
+  background: #111;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.billTableHead{
+  background: #f1f1f1;
+  font-weight: bold;
+  border-bottom: 2px solid #ccc;
+  color: #111;
+}
+
+.billTableHead th {
+  padding: 8px;
+  text-align: left;
+  font-size: 14px;
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .billHeader, .card { width: 100%; padding-left: 16px; padding-right: 16px; }
+  .row { flex-direction: column; }
+  .metaRow { flex-wrap: wrap; }
+  .tableWrap { overflow: auto; }
+}
