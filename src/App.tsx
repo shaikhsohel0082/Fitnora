@@ -13,6 +13,7 @@ import SuperAdminDashboard from "./pages/SuperAdminDashboard";
 import Customers from "./pages/Customers";
 import Products from "./pages/Products";
 import TotalSale from "./pages/TotalSale";
+import PercentageCalculator from "./pages/PercentageCalculator";
 
 const queryClient = new QueryClient();
 
@@ -82,6 +83,14 @@ const App = () => (
             }
           />
 
+          <Route
+            path="/superadmin/percentage-calculator"
+            element={
+              <PrivateRoute role="superadmin">
+                <PercentageCalculator />
+              </PrivateRoute>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

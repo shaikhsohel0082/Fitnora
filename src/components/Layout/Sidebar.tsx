@@ -31,6 +31,15 @@ const Sidebar = () => {
       >
         Total Sale
       </NavLink>
+
+      <NavLink
+        to="/superadmin/percentage-calculator"
+        className={({ isActive }) =>
+          isActive ? `${styles.menuItem} ${styles.active}` : styles.menuItem
+        }
+      >
+        Percentage Calculator
+      </NavLink>
     </aside>
   );
 };
