@@ -1,0 +1,98 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.modal {
+  background: white;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
+  padding: 24px;
+  color: #000;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 16px;
+  color: #000;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.fullWidth {
+  grid-column: span 2;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  color: #000;
+  font-size: 14px;
+}
+
+.labelText {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-weight: 500;
+}
+
+.req {
+  color: red;
+}
+
+input {
+  margin-top: 6px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #d1d1d1;
+  font-size: 14px;
+  color: #000;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.cancelBtn {
+  background: #ddd;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.saveBtn {
+  background: #0077ff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+  .fullWidth {
+    grid-column: span 1;
+  }
+}

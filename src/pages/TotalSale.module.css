@@ -1,0 +1,140 @@
+.container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  color: #000;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.searchInput {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  min-width: 200px;
+  color: #000;
+}
+
+.select {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #000;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 6px;
+  overflow: hidden;
+  color: #000;
+  margin-top: 12px;
+}
+
+.table th,
+.table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  color: #000;
+}
+
+.table th {
+  background-color: #f0f0f0;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+.table th[role="button"]:hover {
+  background-color: #e0e0e0;
+}
+
+.noData,
+.loading,
+.error {
+  text-align: center;
+  padding: 20px;
+  color: #000;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #000;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.customerCol {
+  font-weight: 500;
+}
+
+.netAmount {
+  font-weight: 600;
+}
+
+.badgeSuccess {
+  background-color: #28a745;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.badgeWarn {
+  background-color: #ffc107;
+  color: #000;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.badgeNeutral {
+  background-color: #6c757d;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.totals {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+}
+
+.totalRemaining {
+  color: #dc3545; /* red for remaining amount */
+  font-weight: 600;
+}

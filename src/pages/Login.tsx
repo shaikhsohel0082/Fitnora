@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./Login.module.css"; // <-- Import CSS Module
+import styles from "./Login.module.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -10,12 +10,22 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (username === "fitnora" && password === "admin750") {
-      localStorage.setItem("bill_auth", "true");
+
+    // ✅ Admin Login
+    if (username === "admin" && password === "admin750") {
+      localStorage.setItem("bill_auth", "admin");
       navigate("/bill");
-    } else {
-      alert("Invalid Username or Password");
+      return;
     }
+
+    // ✅ Super Admin Login
+    if (username === "superadmin" && password === "superadmin750") {
+      localStorage.setItem("bill_auth", "superadmin");
+      navigate("/superadmin/customers");
+      return;
+    }
+
+    alert("Invalid Username or Password");
   };
 
   return (
@@ -24,7 +34,7 @@ const Login = () => {
         <h2 className={styles.logo}>Fitnora</h2>
 
         <form onSubmit={handleSubmit}>
-          <label className={styles.inputLabel}>User Id</label>
+          <label className={styles.inputLabel}>User ID</label>
           <input
             className={styles.inputField}
             type="text"

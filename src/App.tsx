@@ -9,11 +9,21 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Bill from "./pages/Bill";
 
+import SuperAdminDashboard from "./pages/SuperAdminDashboard";
+import Customers from "./pages/Customers";
+import Products from "./pages/Products";
+import TotalSale from "./pages/TotalSale";
+
 const queryClient = new QueryClient();
 
-const PrivateRoute = ({ children }) => {
-  const isLoggedIn = localStorage.getItem("bill_auth") === "true";
-  return isLoggedIn ? children : <Navigate to="/login" />;
+// ✅ Role based private route
+const PrivateRoute = ({ children, role }) => {
+  const loggedRole = localStorage.getItem("bill_auth");
+
+  if (!loggedRole) return <Navigate to="/login" />;
+  if (role && loggedRole !== role) return <Navigate to="/login" />;
+
+  return children;
 };
 
 const App = () => (
@@ -28,12 +38,46 @@ const App = () => (
           {/* LOGIN PAGE */}
           <Route path="/login" element={<Login />} />
 
-          {/* BILL PAGE (protected) */}
+          {/* BILL PAGE - Only for ADMIN */}
           <Route
             path="/bill"
             element={
-              <PrivateRoute>
+              <PrivateRoute role="admin">
                 <Bill />
+              </PrivateRoute>
+            }
+          />
+
+          {/* SUPERADMIN PAGES */}
+          <Route
+            path="/superadmin"
+            element={
+              <PrivateRoute role="superadmin">
+                <SuperAdminDashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/superadmin/customers"
+            element={
+              <PrivateRoute role="superadmin">
+                <Customers />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/superadmin/products"
+            element={
+              <PrivateRoute role="superadmin">
+                <Products />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/superadmin/totalsale"
+            element={
+              <PrivateRoute role="superadmin">
+                <TotalSale />
               </PrivateRoute>
             }
           />

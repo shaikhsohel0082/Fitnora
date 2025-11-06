@@ -1,0 +1,127 @@
+.container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  color: #000; /* ensure all text is visible */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  color: #000; /* text color */
+}
+
+.addButton {
+  background-color: #0077ff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.addButton:hover {
+  background-color: #005ecb;
+}
+
+.searchInput {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-size: 14px;
+  min-width: 200px;
+  color: #000; /* input text color */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 6px;
+  overflow: hidden;
+  color: #000; /* table text color */
+}
+
+.table th,
+.table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  color: #000; /* ensure text is black */
+}
+
+.table th {
+  background-color: #f0f0f0;
+  font-weight: 600;
+  color: #000;
+}
+
+.actionButtons button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+.editBtn {
+  background-color: #ffc107;
+}
+
+.editBtn:hover {
+  background-color: #e0a800;
+}
+
+.deleteBtn {
+  background-color: #dc3545;
+}
+
+.deleteBtn:hover {
+  background-color: #c82333;
+}
+
+.noData,
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #000; /* ensure visibility */
+}
+
+.actionsCol {
+  min-width: 130px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #000; /* ensure button text visible */
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+img {
+  max-width: 50px;
+  max-height: 50px;
+  border-radius: 5px;
+  object-fit: cover;
+}
