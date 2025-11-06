@@ -21,7 +21,7 @@ interface Props {
 }
 
 const CustomerModal: React.FC<Props> = ({ open, onClose, onSubmit, initialData, title }) => {
-  const [form, setForm] = useState<CustomerForm>({
+  const emptyData:CustomerForm={
     name: "",
     address: "",
     mobile: "",
@@ -30,7 +30,8 @@ const CustomerModal: React.FC<Props> = ({ open, onClose, onSubmit, initialData, 
     state: "",
     pincode: "",
     margin_percentage: "",
-  });
+  };
+  const [form, setForm] = useState<CustomerForm>(emptyData);
 
   useEffect(() => {
     if (initialData) setForm(initialData);
@@ -52,7 +53,7 @@ const CustomerModal: React.FC<Props> = ({ open, onClose, onSubmit, initialData, 
       !form.city.trim() ||
       !form.state.trim() ||
       !form.pincode.trim() ||
-      !form.margin_percentage.trim()
+      !String(form.margin_percentage)?.trim()
     ) {
       alert("Please fill all required fields.");
       return;
@@ -74,6 +75,7 @@ const CustomerModal: React.FC<Props> = ({ open, onClose, onSubmit, initialData, 
     }
 
     onSubmit(form);
+    setForm(emptyData);
     onClose();
   };
 

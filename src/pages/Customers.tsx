@@ -13,10 +13,9 @@ interface Customer {
   state: string;
   pincode: string;
   margin_percentage: string;
-  active: boolean;
 }
 
-const API_BASE = "https://api.example.com"; // Change to real API
+const API_BASE = `${import.meta.env.VITE_API_BASE_URL}`;
 
 const PAGE_SIZE = 5;
 
@@ -53,6 +52,7 @@ const Customers: React.FC = () => {
   const handleSave = async (form: CustomerForm) => {
     try {
       if (editCustomer) {
+        console.log("editCustomer",editCustomer)
         await fetch(`${API_BASE}/customers/${editCustomer.id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -135,14 +135,14 @@ const Customers: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {customers.length === 0 ? (
+                {customers?.length === 0 ? (
                   <tr>
                     <td colSpan={9} className={styles.noData}>
                       No customers found
                     </td>
                   </tr>
                 ) : (
-                  customers.map((c) => (
+                  customers?.map((c) => (
                     <tr key={c.id}>
                       <td>{c.id}</td>
                       <td>{c.name}</td>
