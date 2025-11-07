@@ -21,6 +21,28 @@
 .whatsAppWrapper:hover {
   opacity: 0.8;
 }
+.adimnWrapper{
+  position: absolute;
+  top:5px;
+  right:10px;
+  z-index: 2;
+}
+.adminBtn {
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  background: var(--gradient-primary);
+  color: hsl(var(--primary-foreground));
+  box-shadow: var(--shadow-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+}
+
 @media (max-width: 700px) {
   .whatsAppWrapper {
     height: 2rem;

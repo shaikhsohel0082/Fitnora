@@ -31,7 +31,11 @@ const Login = () => {
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.loginCard}>
-        <h2 className={styles.logo}>Fitnora</h2>
+        <h2
+          className={styles.logo}
+        >
+          Fitnora
+        </h2>
 
         <form onSubmit={handleSubmit}>
           <label className={styles.inputLabel}>User ID</label>

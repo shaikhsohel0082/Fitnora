@@ -167,7 +167,7 @@ const Products: React.FC = () => {
                     <td>{p.id}</td>
                     <td>
                       {p.image ? (
-                        <img src={p.image} alt={p.name} width={50} />
+                        <img src={p.image} alt={p.name} width={50} className={styles.productImg}/>
                       ) : (
                         "-"
                       )}

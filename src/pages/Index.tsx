@@ -6,10 +6,22 @@ import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import styles from "./Index.module.css";
 import WhatsAppButton from "@/components/Whatsapp/Whatsapp";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
+  const navigate = useNavigate();
   return (
     <div className={styles.pageContainer}>
+      <div className={styles.adimnWrapper}>
+        <button
+          className={styles.adminBtn}
+          onClick={() => {
+            navigate("/superadmin");
+          }}
+        >
+          Admin login
+        </button>
+      </div>
       <Hero />
       <ProductShowcase />
       <Benefits />
