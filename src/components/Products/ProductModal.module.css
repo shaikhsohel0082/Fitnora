@@ -16,7 +16,7 @@
   background: white;
   border-radius: 10px;
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   padding: 24px;
   color: #000;
 }
@@ -87,6 +87,45 @@ input[type="file"] {
   border-radius: 6px;
   color: white;
   cursor: pointer;
+}
+.addBtn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+ margin-top: 5px;
+}
+
+.addBtn:hover {
+  background-color: #0056b3;
+}
+
+.removeBtn {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+  line-height: 0;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.removeBtn:hover {
+  background-color: #d9363e;
+}
+.unitMrpContainer{
+  width: 100%;
+}
+.unitMrpRow{
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 img.preview {

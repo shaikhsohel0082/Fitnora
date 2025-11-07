@@ -112,3 +112,7 @@ img {
   border-radius: 5px;
   object-fit: cover;
 }
+.mrpList{
+  list-style-type: none;
+  
+}

@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ProductModal.module.css";
 
-export interface ProductForm {
-  image?: File;
-  name: string;
-  units: string;
+export interface UnitMrp {
+  unit: string;
   mrp: string;
-  selling_price: string;
+}
+
+export interface ProductForm {
+  image?: string;
+  name: string;
   hsn_number: string;
+  selling_price?: string;
+  stock: number;
+  unitMrpList: UnitMrp[] | string;
+
 }
 
 interface Props {
@@ -18,45 +24,85 @@ interface Props {
   title: string;
 }
 
-const ProductModal: React.FC<Props> = ({ open, onClose, onSubmit, initialData, title }) => {
-  const [form, setForm] = useState<ProductForm>({
-    image: undefined,
+const ProductModal: React.FC<Props> = ({
+  open,
+  onClose,
+  onSubmit,
+  initialData,
+  title,
+}) => {
+  const resetData={image: undefined,
     name: "",
-    units: "",
-    mrp: "",
-    selling_price: "",
     hsn_number: "",
-  });
+    selling_price: "",
+    stock: 0,
+    unitMrpList: [{ unit: "", mrp: "" }],
+  }
+  const [form, setForm] = useState<ProductForm>(resetData
+    );
 
   useEffect(() => {
     if (initialData) setForm(initialData);
   }, [initialData]);
 
-  const handleChange = (field: keyof ProductForm, value) => {
+  const handleChange = (field: keyof ProductForm, value: any) => {
     setForm({ ...form, [field]: value });
   };
 
+  const handleUnitMrpChange = (
+    index: number,
+    field: keyof UnitMrp,
+    value: string
+  ) => {
+    const updatedList = [...form.unitMrpList];
+    updatedList[index][field] = value;
+    setForm({ ...form, unitMrpList: updatedList as UnitMrp[] });
+  };
+
+  const addUnitMrp = () => {
+    setForm({
+      ...form,
+      unitMrpList: [...form.unitMrpList, { unit: "", mrp: "" }] as UnitMrp[],
+    });
+  };
+
+  const removeUnitMrp = (index: number) => {
+    const updatedList =
+      Array.isArray(form.unitMrpList) &&
+      form.unitMrpList.filter((_, i) => i !== index);
+    setForm({ ...form, unitMrpList: updatedList });
+  };
+
   const handleSubmit = () => {
-    if (!form.name || !form.units || !form.mrp || !form.selling_price || !form.hsn_number) {
+    if (!form.name || !form.hsn_number) {
       alert("Please fill all required fields.");
       return;
     }
-    onSubmit(form);
+
+    const hasEmptyUnitMrp =
+      Array.isArray(form.unitMrpList) &&
+      form.unitMrpList.some((item) => !item.unit || !item.mrp);
+
+    if (hasEmptyUnitMrp) {
+      alert("Please fill all unit and MRP fields.");
+      return;
+    }
+    const payload: ProductForm = {
+      name: form.name,
+      image: form.image,
+      hsn_number: form.hsn_number,
+      stock: form.stock,
+      unitMrpList: JSON.stringify(form.unitMrpList),
+    };
+    onSubmit(payload);
     onClose();
+    setForm(resetData)
   };
 
   const handleClose = () => {
-  // Reset form to initial state
-  setForm({
-    image: undefined,
-    name: "",
-    units: "",
-    mrp: "",
-    selling_price: "",
-    hsn_number: "",
-  });
-  onClose();
-};
+    setForm(resetData);
+    onClose();
+  };
 
   if (!open) return null;
 
@@ -68,38 +114,90 @@ const ProductModal: React.FC<Props> = ({ open, onClose, onSubmit, initialData, t
         <div className={styles.formGrid}>
           <label>
             <span className={styles.labelText}>Image</span>
-            <input type="file" accept="image/*" onChange={(e) => handleChange("image", e.target.files?.[0])} />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleChange("image", e.target.files?.[0])}
+            />
           </label>
 
           <label>
             <span className={styles.labelText}>Product Name *</span>
-            <input value={form.name} onChange={(e) => handleChange("name", e.target.value)} />
-          </label>
-
-          <label>
-            <span className={styles.labelText}>Units (gm) *</span>
-            <input value={form.units} onChange={(e) => handleChange("units", e.target.value)} />
-          </label>
-
-          <label>
-            <span className={styles.labelText}>MRP *</span>
-            <input type="number" value={form.mrp} onChange={(e) => handleChange("mrp", e.target.value)} />
-          </label>
-
-          <label>
-            <span className={styles.labelText}>Selling Price *</span>
-            <input type="number" value={form.selling_price} onChange={(e) => handleChange("selling_price", e.target.value)} />
+            <input
+              value={form.name}
+              onChange={(e) => handleChange("name", e.target.value)}
+            />
           </label>
 
           <label>
             <span className={styles.labelText}>Product HSN Number *</span>
-            <input value={form.hsn_number} onChange={(e) => handleChange("hsn_number", e.target.value)} />
+            <input
+              value={form.hsn_number}
+              onChange={(e) => handleChange("hsn_number", e.target.value)}
+            />
           </label>
+
+          <label>
+            <span className={styles.labelText}>Stock (gm) *</span>
+            <input
+              type="number"
+              value={form.stock}
+              onChange={(e) => handleChange("stock", Number(e.target.value))}
+            />
+          </label>
+
+          {/* Multiple Unit–MRP Section */}
+          <div className={styles.unitMrpContainer}>
+            <span className={styles.labelText}>Units & MRP *</span>
+            {Array.isArray(form.unitMrpList) &&
+              form.unitMrpList.map((item, index) => (
+                <div key={index} className={styles.unitMrpRow}>
+                  <input
+                    type="text"
+                    placeholder="Unit (gm)"
+                    value={item.unit}
+                    onChange={(e) =>
+                      handleUnitMrpChange(index, "unit", e.target.value)
+                    }
+                    
+                  />
+                  <input
+                    type="number"
+                    placeholder="MRP"
+                    value={item.mrp}
+                    onChange={(e) =>
+                      handleUnitMrpChange(index, "mrp", e.target.value)
+                    }
+                    
+                  />
+                  {form.unitMrpList.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => removeUnitMrp(index)}
+                      className={styles.removeBtn}
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+              ))}
+            <button
+              type="button"
+              className={styles.addBtn}
+              onClick={addUnitMrp}
+            >
+              + Add More
+            </button>
+          </div>
         </div>
 
         <div className={styles.footer}>
-          <button className={styles.cancelBtn} onClick={handleClose}>Cancel</button>
-          <button className={styles.saveBtn} onClick={handleSubmit}>Save</button>
+          <button className={styles.cancelBtn} onClick={handleClose}>
+            Cancel
+          </button>
+          <button className={styles.saveBtn} onClick={handleSubmit}>
+            Save
+          </button>
         </div>
       </div>
     </div>
