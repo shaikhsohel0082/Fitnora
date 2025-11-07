@@ -1,19 +1,17 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import Login from "./pages/Login";
 import Bill from "./pages/Bill";
-
-import SuperAdminDashboard from "./pages/SuperAdminDashboard";
+import Index from "./pages/Index";
+import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
+import { ToastContainer } from "react-toastify";
 import Customers from "./pages/Customers";
-import Products from "./pages/Products";
-import TotalSale from "./pages/TotalSale";
 import PercentageCalculator from "./pages/PercentageCalculator";
+import Products from "./pages/Products";
+import SuperAdminDashboard from "./pages/SuperAdminDashboard";
+import TotalSale from "./pages/TotalSale";
 
 const queryClient = new QueryClient();
 
@@ -30,8 +28,7 @@ const PrivateRoute = ({ children, role }) => {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
+      <ToastContainer position="top-right" autoClose={3000} theme="colored" />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />

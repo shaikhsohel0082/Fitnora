@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout/Layout";
-import CustomerModal, { CustomerForm } from "../components/Customers/CustomerModal";
+import CustomerModal, {
+  CustomerForm,
+} from "../components/Customers/CustomerModal";
 import styles from "./Customers.module.css";
+import { toast } from "react-toastify";
 
 interface Customer {
   id: number;
@@ -52,7 +55,7 @@ const Customers: React.FC = () => {
   const handleSave = async (form: CustomerForm) => {
     try {
       if (editCustomer) {
-        console.log("editCustomer",editCustomer)
+        console.log("editCustomer", editCustomer);
         await fetch(`${API_BASE}/customers/${editCustomer.id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -66,8 +69,12 @@ const Customers: React.FC = () => {
         });
       }
       load();
+      toast.success(
+        `Customer ${editCustomer ? "Updated" : "Added"} Successfully`
+      );
     } catch (err) {
       console.error("Save error:", err);
+      toast.error("Failed to Add customer!", err);
     }
   };
 
@@ -77,12 +84,15 @@ const Customers: React.FC = () => {
   };
 
   const handleDelete = async (id: number) => {
-    if (!window.confirm("Are you sure you want to delete this customer?")) return;
+    if (!window.confirm("Are you sure you want to delete this customer?"))
+      return;
     try {
       await fetch(`${API_BASE}/customers/${id}`, { method: "DELETE" });
       load();
+      toast.success("Customer Deleted Successfully");
     } catch (err) {
       console.error("Delete error:", err);
+      toast.error("Failed to delete customer!", err);
     }
   };
 
@@ -153,10 +163,16 @@ const Customers: React.FC = () => {
                       <td>{c.pincode}</td>
                       <td>{c.margin_percentage}%</td>
                       <td className={styles.actionButtons}>
-                        <button className={styles.editBtn} onClick={() => handleEdit(c)}>
+                        <button
+                          className={styles.editBtn}
+                          onClick={() => handleEdit(c)}
+                        >
                           Edit
                         </button>
-                        <button className={styles.deleteBtn} onClick={() => handleDelete(c.id)}>
+                        <button
+                          className={styles.deleteBtn}
+                          onClick={() => handleDelete(c.id)}
+                        >
                           Delete
                         </button>
                       </td>

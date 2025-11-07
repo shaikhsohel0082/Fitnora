@@ -5,6 +5,8 @@ import ProductModal, {
   UnitMrp,
 } from "../components/Products/ProductModal";
 import styles from "./Products.module.css";
+import { toast } from "react-toastify";
+
 
 interface Product {
   id: number;
@@ -12,7 +14,7 @@ interface Product {
   name: string;
   hsn_number: string;
   unitMrpList: UnitMrp[];
-  stock:number
+  stock: number;
 }
 
 const API_BASE = `${import.meta.env.VITE_API_BASE_URL}`;
@@ -50,36 +52,38 @@ const Products: React.FC = () => {
     load(pageNumber, searchTerm);
   }, [pageNumber, searchTerm]);
 
-const handleSave = async (form: ProductForm) => {
-  try {
-    const payload = { ...form };
+  const handleSave = async (form: ProductForm) => {
+    try {
+      const payload = { ...form };
 
-    if (typeof form.unitMrpList === "object") {
-      payload.unitMrpList = form.unitMrpList;
-    } else if (typeof form.unitMrpList === "string") {
-      payload.unitMrpList = JSON.parse(form.unitMrpList);
+      if (typeof form.unitMrpList === "object") {
+        payload.unitMrpList = form.unitMrpList;
+      } else if (typeof form.unitMrpList === "string") {
+        payload.unitMrpList = JSON.parse(form.unitMrpList);
+      }
+
+      const url = editProduct
+        ? `${API_BASE}/products/${editProduct.id}`
+        : `${API_BASE}/products`;
+
+      await fetch(url, {
+        method: editProduct ? "PUT" : "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      setIsModalOpen(false);
+      load(pageNumber, searchTerm);
+      toast.success(
+        `Product ${editProduct ? "Updated" : "Added"} Successfully`
+      );
+    } catch (err) {
+      console.error("Save error:", err);
+      toast.error("Error", err);
     }
-
-    const url = editProduct
-      ? `${API_BASE}/products/${editProduct.id}`
-      : `${API_BASE}/products`;
-
-    await fetch(url, {
-      method: editProduct ? "PUT" : "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-
-    setIsModalOpen(false);
-    load(pageNumber, searchTerm);
-  } catch (err) {
-    console.error("Save error:", err);
-  }
-};
-
-
+  };
 
   const handleEdit = (product: Product) => {
     setEditProduct(product);
@@ -92,8 +96,10 @@ const handleSave = async (form: ProductForm) => {
     try {
       await fetch(`${API_BASE}/products/${id}`, { method: "DELETE" });
       load(pageNumber, searchTerm);
+      toast.success("Product Deleted Successfully");
     } catch (err) {
       console.error("Delete error:", err);
+      toast.error("Failed to delete!", err);
     }
   };
 
