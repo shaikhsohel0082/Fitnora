@@ -43,6 +43,7 @@ const ProductModal: React.FC<Props> = ({
 
   useEffect(() => {
     if (initialData) setForm(initialData);
+    else setForm(resetData);
   }, [initialData]);
 
   const handleChange = (field: keyof ProductForm, value: any) => {
