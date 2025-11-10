@@ -23,7 +23,7 @@ export const ItemTable = ({
     const unit = Number(updated[index].unit || 0);
     const rate = Number(updated[index].rate || 0);
     const discPct = Number(updated[index].disc || 0);
-    const gstPct = Number(updated[index].gst || 0);
+    const gstPct = Number(0);
 
     const base = qty * rate;
     const discAmt = (discPct / 100) * base;

@@ -40,7 +40,7 @@ const App = () => (
           <Route
             path="/bill"
             element={
-              <PrivateRoute role="admin">
+              <PrivateRoute role={`admin`}>
                 <Bill />
               </PrivateRoute>
             }
@@ -60,6 +60,14 @@ const App = () => (
             element={
               <PrivateRoute role="superadmin">
                 <Customers />
+              </PrivateRoute>
+            }
+          />
+           <Route
+            path="/superadmin/bill"
+            element={
+              <PrivateRoute role="superadmin">
+                <Bill />
               </PrivateRoute>
             }
           />

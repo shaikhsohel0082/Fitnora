@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import Select, { components } from "react-select";
 import { useCustomers } from "@/hooks/customer/fetchAllCustomers";
 
-export const CustomerSelect = ({ setCustomerDetails, setMargin }: any) => {
+export const CustomerSelect = ({ setCustomerDetails }: any) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCustomer, setSelectedCustomer] = useState<any>(null);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
@@ -27,9 +27,9 @@ export const CustomerSelect = ({ setCustomerDetails, setMargin }: any) => {
       name: option.label,
       address: option.address || "",
       gst: option.gst || "",
+      margin_percentage:option.margin_percentage,
+      id:option.value
     });
-    console.log(option)
-    setMargin(Number(option.margin_percentage || 0));
   };
 
   const handleMenuScrollToBottom = () => {

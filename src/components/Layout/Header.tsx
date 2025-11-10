@@ -19,6 +19,14 @@ const Header = () => {
       >
         Fitnora
       </h1>
+      <button
+        className="btn btn-info"
+        onClick={() => {
+          window.open("/superadmin/bill", "_blank");
+        }}
+      >
+        Generate Bill
+      </button>
       <button className={styles.logoutBtn} onClick={handleLogout}>
         Logout
       </button>

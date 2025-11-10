@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import styles from "./Bill.module.css";
 import { CustomerSelect } from "./CustomerSelect";
 import { ItemTable } from "./ItemTable";
 import { BillSummary } from "./BillSummary";
+import { InvoicePayload } from "@/services/invoice/createInvoice";
+import InvoiceNumber from "./InvoiceNumber";
 
 const defaultRow = {
   hsn: "",
@@ -18,8 +20,8 @@ const defaultRow = {
   disc: "",
   gst: "18",
   amount: 0,
-  unitMrpList:[],
-  id:""
+  unitMrpList: [],
+  id: "",
 };
 
 const Bill = () => {
@@ -27,10 +29,12 @@ const Bill = () => {
     name: "",
     address: "",
     gst: "",
+    id: "",
+    margin_percentage: "",
   });
 
   const [items, setItems] = useState([{ ...defaultRow }]);
-  const [margin,setMargin]=useState(0);
+  const [invoiceNumber, setInvoiceNumber] = useState("");
   const handleProductSelect = (index: number, productData: any) => {
     const updated = [...items];
     updated[index] = {
@@ -38,8 +42,8 @@ const Bill = () => {
       hsn: productData.hsn_number || "",
       product: productData.label || "",
       unitMrpList: productData.unitMrpList || "",
-      id:productData.value,
-      mrp:"0"
+      id: productData.value,
+      mrp: "0",
     };
     setItems(updated);
   };
@@ -53,13 +57,33 @@ const Bill = () => {
     0
   );
   const totalAmount = items.reduce((s, it) => s + Number(it.amount || 0), 0);
-
+  const payload: InvoicePayload = useMemo(
+    () => ({
+      customerId:
+        customerDetails?.id?.trim() !== "" ? customerDetails.id : null,
+      productDetails: items?.map((item) => ({
+        productId: item.id,
+        unit: Number(item.unit),
+        mrp: Number(item.mrp),
+        rate: Number(item.rate),
+        qty: Number(item.qty),
+        disc: Number(item.disc),
+        amount: item.amount,
+        
+      })),
+      invoiceNumber,
+    }),
+    [customerDetails.id, invoiceNumber, items]
+  );
   return (
     <div className={styles.billContainer}>
       <h2 className={styles.pageTitle}>Bill Generator (Fitnora)</h2>
 
-      {/* Customer Section */}
-      <CustomerSelect setCustomerDetails={setCustomerDetails} setMargin={setMargin}/>
+      <div className="d-flex align-items-center justify-content-evenly w-50">
+        <InvoiceNumber setInvoiceNumber={setInvoiceNumber} />
+        {/* Customer Section */}
+        <CustomerSelect setCustomerDetails={setCustomerDetails} />
+      </div>
 
       {/* Product Table */}
       <ItemTable
@@ -68,11 +92,15 @@ const Bill = () => {
         addRow={addRow}
         removeRow={removeRow}
         onProductSelect={handleProductSelect}
-        margin={margin}
+        margin={Number(customerDetails.margin_percentage || 0)}
       />
 
       {/* Bill Summary */}
-      <BillSummary totalTaxable={totalTaxable} totalAmount={totalAmount} />
+      <BillSummary
+        totalTaxable={totalTaxable}
+        totalAmount={totalAmount}
+        payload={payload}
+      />
     </div>
   );
 };
