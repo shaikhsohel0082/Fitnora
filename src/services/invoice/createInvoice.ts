@@ -3,7 +3,17 @@ import axios from "axios";
 export interface InvoicePayload {
   customerId?: string | null;
   productDetails: IProductInvoice[];
-  invoiceNumber:string
+  invoiceNumber:string;
+  paymentData:IPaymentData;
+  totalAmount:number;
+}
+export type  ModeOfPayment="cash"|"online"|"card"|"other";
+export type PaymentStatus="paid"|"unpaid"|"partial";
+export interface IPaymentData{
+  modeOfPayment?:ModeOfPayment,
+  paymentStatus?:PaymentStatus,
+  pendingAmount?:number
+
 }
 export interface IProductInvoice {
   productId: string;
@@ -20,7 +30,7 @@ export const createInvoice = async (payload: InvoicePayload) => {
 
   try {
     const res = await axios.post(`${API_BASE}/invoice/create`, payload);
-    return res.data as string;
+    return res.data.id as string;
   } catch (error) {
     console.error("Error loading Products:", error);
     throw error;

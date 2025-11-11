@@ -25,14 +25,14 @@ const defaultRow = {
 };
 
 const Bill = () => {
-  const [customerDetails, setCustomerDetails] = useState({
+  const initailCustomer={
     name: "",
     address: "",
     gst: "",
     id: "",
     margin_percentage: "",
-  });
-
+  }
+  const [customerDetails, setCustomerDetails] = useState(initailCustomer);
   const [items, setItems] = useState([{ ...defaultRow }]);
   const [invoiceNumber, setInvoiceNumber] = useState("");
   const handleProductSelect = (index: number, productData: any) => {
@@ -57,7 +57,7 @@ const Bill = () => {
     0
   );
   const totalAmount = items.reduce((s, it) => s + Number(it.amount || 0), 0);
-  const payload: InvoicePayload = useMemo(
+  const payload: Omit<InvoicePayload, "paymentData"> = useMemo(
     () => ({
       customerId:
         customerDetails?.id?.trim() !== "" ? customerDetails.id : null,
@@ -69,12 +69,18 @@ const Bill = () => {
         qty: Number(item.qty),
         disc: Number(item.disc),
         amount: item.amount,
-        
       })),
       invoiceNumber,
+      totalAmount,
     }),
-    [customerDetails.id, invoiceNumber, items]
+    [customerDetails.id, invoiceNumber, items, totalAmount]
   );
+
+  const resetBill=()=>{
+    setCustomerDetails(initailCustomer);
+    setItems([]);
+    setInvoiceNumber('');
+  }
   return (
     <div className={styles.billContainer}>
       <h2 className={styles.pageTitle}>Bill Generator (Fitnora)</h2>
@@ -100,6 +106,7 @@ const Bill = () => {
         totalTaxable={totalTaxable}
         totalAmount={totalAmount}
         payload={payload}
+        resetBill={resetBill}
       />
     </div>
   );
