@@ -110,6 +110,7 @@ export const ItemTable = ({
                   name="qty"
                   type="number"
                   value={it.qty}
+                  min={0}
                   onChange={(e) => handleItemChange(idx, e)}
                 />
               </td>
@@ -118,6 +119,7 @@ export const ItemTable = ({
                 <input
                   name="disc"
                   type="number"
+                  min={0}
                   value={it.disc}
                   onChange={(e) => handleItemChange(idx, e)}
                 />
@@ -126,6 +128,7 @@ export const ItemTable = ({
                 <input
                   name="gst"
                   type="number"
+                  min={0}
                   value={it.gst}
                   onChange={(e) => handleItemChange(idx, e)}
                   disabled={true}

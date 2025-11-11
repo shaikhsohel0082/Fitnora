@@ -7,12 +7,12 @@ export interface InvoicePayload {
   paymentData:IPaymentData;
   totalAmount:number;
 }
-export type  ModeOfPayment="cash"|"online"|"card"|"other";
+export type  ModeOfPayment="cash"|"online"|"card"|"other"|"na";
 export type PaymentStatus="paid"|"unpaid"|"partial";
 export interface IPaymentData{
   modeOfPayment?:ModeOfPayment,
   paymentStatus?:PaymentStatus,
-  pendingAmount?:number
+  paidAmount?:number
 
 }
 export interface IProductInvoice {

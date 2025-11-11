@@ -78,7 +78,7 @@ const Bill = () => {
 
   const resetBill=()=>{
     setCustomerDetails(initailCustomer);
-    setItems([]);
+    setItems([{ ...defaultRow }]);
     setInvoiceNumber('');
   }
   return (
