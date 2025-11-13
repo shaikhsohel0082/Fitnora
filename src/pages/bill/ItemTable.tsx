@@ -136,13 +136,13 @@ export const ItemTable = ({
               </td>
               <td>{it.amount?.toFixed ? it.amount.toFixed(2) : it.amount}</td>
               <td>
-                <button onClick={() => removeRow(idx)}>✕</button>
+                <button onClick={() => removeRow(idx)} className="btn btn-danger">✕</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <button className={styles.addBtn} onClick={addRow}>
+      <button className={`${styles.addBtn} mt-3`} onClick={addRow}>
         + Add Item
       </button>
     </div>
