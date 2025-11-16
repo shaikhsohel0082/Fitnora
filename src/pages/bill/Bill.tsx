@@ -78,7 +78,7 @@ const Bill = () => {
 
   const resetBill=()=>{
     setCustomerDetails(initailCustomer);
-    setItems([{ ...defaultRow }]);
+    setItems([]);
     setInvoiceNumber('');
   }
   return (
@@ -88,7 +88,7 @@ const Bill = () => {
       <div className="d-flex align-items-center justify-content-evenly w-50">
         <InvoiceNumber setInvoiceNumber={setInvoiceNumber} />
         {/* Customer Section */}
-        <CustomerSelect setCustomerDetails={setCustomerDetails} />
+        <CustomerSelect setCustomerDetails={setCustomerDetails} customerDetails={customerDetails}/>
       </div>
 
       {/* Product Table */}

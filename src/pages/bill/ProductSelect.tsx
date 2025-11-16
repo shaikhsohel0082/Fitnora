@@ -42,6 +42,10 @@ export const ProductSelect = ({ onSelect, value }: Props) => {
       onMenuScrollToBottom={handleMenuScrollToBottom}
       styles={{
         menu: (base) => ({ ...base, zIndex: 9999, minWidth: "150px" }),
+        container: (base) => ({
+          ...base,
+          minWidth: "100px",
+        }),
       }}
       components={{
         MenuList: (props) => (

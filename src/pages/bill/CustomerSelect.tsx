@@ -2,9 +2,11 @@ import React, { useState, useMemo } from "react";
 import Select, { components } from "react-select";
 import { useCustomers } from "@/hooks/customer/fetchAllCustomers";
 
-export const CustomerSelect = ({ setCustomerDetails }: any) => {
+export const CustomerSelect = ({
+  setCustomerDetails,
+  customerDetails,
+}: any) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCustomer, setSelectedCustomer] = useState<any>(null);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useCustomers(searchTerm);
 
@@ -16,22 +18,26 @@ export const CustomerSelect = ({ setCustomerDetails }: any) => {
         label: c.name,
         address: c.address,
         gst: c.gst,
-        margin_percentage:c.margin_percentage
+        margin_percentage: c.margin_percentage,
       }))
     );
   }, [data]);
 
   const handleCustomerSelect = (option: any) => {
-    setSelectedCustomer(option);
     setCustomerDetails({
       name: option.label,
       address: option.address || "",
       gst: option.gst || "",
-      margin_percentage:option.margin_percentage,
-      id:option.value
+      margin_percentage: option.margin_percentage,
+      id: option.value,
     });
   };
-
+  const selectedCustomer = useMemo(() => {
+    return {
+      label: customerDetails.name,
+      value: customerDetails.id,
+    };
+  }, [customerDetails.id, customerDetails.name]);
   const handleMenuScrollToBottom = () => {
     if (hasNextPage && !isFetchingNextPage) fetchNextPage();
   };
@@ -44,8 +50,8 @@ export const CustomerSelect = ({ setCustomerDetails }: any) => {
         options={customerOptions}
         onInputChange={(val) => setSearchTerm(val)}
         onChange={handleCustomerSelect}
-        value={selectedCustomer}
-        placeholder="Select or search customer"
+        value={selectedCustomer.value ? selectedCustomer : "Select Customer"}
+        placeholder="Select customer"
         onMenuScrollToBottom={handleMenuScrollToBottom}
         styles={{ menu: (base) => ({ ...base, zIndex: 9999 }) }}
         components={{

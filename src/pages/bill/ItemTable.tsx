@@ -86,6 +86,7 @@ export const ItemTable = ({
                     value: ele.unit,
                     label: ele.unit,
                   }))}
+                  value={{label:it.unit,value:it.unit}}
                   id="unit"
                   onChange={(opt: any) =>
                     opt && handleSelect(idx, "unit", opt.value)
@@ -96,6 +97,10 @@ export const ItemTable = ({
                       zIndex: 9999,
                       minWidth: "150px",
                     }),
+                    container:(base)=>({
+                      ...base,
+                      minWidth:"max-content"
+                    })
                   }}
                 />
               </td>

@@ -32,7 +32,8 @@ export const BillSummary = ({
   resetBill,
 }: Props) => {
   // Initialize with a default state, not null
-  const [paymentData, setPaymentData] = useState<IPaymentData>(initialPaymentState);
+  const [paymentData, setPaymentData] =
+    useState<IPaymentData>(initialPaymentState);
 
   // Use a temporary state for the input field to prevent flicker/delay
   const [paidInput, setPaidInput] = useState(0);
@@ -60,7 +61,8 @@ export const BillSummary = ({
         ...paymentData,
         paidAmount: paid,
         pendingAmount: pending,
-        paymentStatus: paid === 0 ? "unpaid" : paid < totalAmount ? "partial" : "paid",
+        paymentStatus:
+          paid === 0 ? "unpaid" : paid < totalAmount ? "partial" : "paid",
       },
     };
   }, [payload, paymentData, paidInput, totalAmount]);
@@ -107,15 +109,27 @@ export const BillSummary = ({
   const isButtonDisable = useMemo(() => {
     // Check if total amount is > 0 and if the required mode is selected
     if (totalAmount === 0) return true;
+    if (
+      payload.productDetails.some(
+        (product) => product.productId.trim() === "" || !product.unit
+      )
+    ) {
+      return true;
+    }
     if (!paymentData.modeOfPayment) return true;
-    
+
     // Check if the paid amount is a valid number and not negative
     const paid = requiredPaylod.paymentData.paidAmount;
-    if (typeof paid !== 'number' || isNaN(paid) || paid < 0) return true;
+    if (typeof paid !== "number" || isNaN(paid) || paid < 0) return true;
 
     return false;
-  }, [totalAmount, requiredPaylod.paymentData, paymentData.modeOfPayment]);
-  
+  }, [
+    totalAmount,
+    payload.productDetails,
+    paymentData.modeOfPayment,
+    requiredPaylod.paymentData.paidAmount,
+  ]);
+
   // Custom reset function to ensure all states are cleared
   const handleReset = () => {
     resetBill();
@@ -165,24 +179,32 @@ export const BillSummary = ({
             <input
               type="number"
               disabled={
-                totalAmount === 0 || paymentData.paymentStatus === "paid" || paymentData.paymentStatus === "unpaid"
+                totalAmount === 0 ||
+                paymentData.paymentStatus === "paid" ||
+                paymentData.paymentStatus === "unpaid"
               }
               // Display the value from the paidInput state
-              value={paidInput} 
+              value={paidInput}
               onChange={(e) => {
                 const newValue = Number(e.target.value);
                 // Prevent paid amount from exceeding total amount in the input
                 if (newValue <= totalAmount) {
                   setPaidInput(newValue);
-                  
+
                   // Automatically switch status to 'partial' if user starts editing the input
                   if (newValue > 0 && newValue < totalAmount) {
-                       setPaymentData(prev => ({ ...prev, paymentStatus: 'partial' }));
+                    setPaymentData((prev) => ({
+                      ...prev,
+                      paymentStatus: "partial",
+                    }));
                   }
                 } else {
                   // If the user tries to input more than total amount, set it to total amount
                   setPaidInput(totalAmount);
-                  setPaymentData(prev => ({ ...prev, paymentStatus: 'paid' }));
+                  setPaymentData((prev) => ({
+                    ...prev,
+                    paymentStatus: "paid",
+                  }));
                   toast.info("Paid amount cannot exceed Total Amount.");
                 }
               }}
@@ -192,7 +214,9 @@ export const BillSummary = ({
         </div>
 
         <div className={`${styles.actionGroup} mt-3`}>
-          <div className={styles.totalBox}>NET Rs. {totalAmount.toFixed(2)}</div>
+          <div className={styles.totalBox}>
+            NET Rs. {totalAmount.toFixed(2)}
+          </div>
           <button
             className={`${styles.previewBtn} ${
               isButtonDisable ? "opacity-50" : ""
@@ -202,7 +226,7 @@ export const BillSummary = ({
               if (data) {
                 try {
                   generateInvoice(data);
-                  handleReset(); // Use the custom reset function
+                  handleReset();
                 } catch (err) {
                   toast.error("Error generating invoice!");
                 }
