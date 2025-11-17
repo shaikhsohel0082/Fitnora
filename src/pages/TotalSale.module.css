@@ -41,9 +41,10 @@
   border-collapse: collapse;
   background-color: white;
   border-radius: 6px;
-  overflow: hidden;
   color: #000;
   margin-top: 12px;
+  
+
 }
 
 .table th,
@@ -138,3 +139,4 @@
   color: #dc3545; /* red for remaining amount */
   font-weight: 600;
 }
+

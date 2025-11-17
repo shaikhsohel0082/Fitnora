@@ -136,7 +136,7 @@ export const BillSummary = ({
     setPaymentData(initialPaymentState); // Reset to initial state
     setPaidInput(0); // Reset input value
   };
-
+  const gst=Number (totalAmount.toFixed(2))  * (0.18);
   return (
     <div className={`${styles.card}`}>
       <div className={`${styles.summaryRow} d-flex flex-column`}>
@@ -146,7 +146,8 @@ export const BillSummary = ({
             <strong>Gross:</strong> Rs. {totalAmount.toFixed(2)}
           </div>
           <div>
-            <strong>CGST@8%:</strong> Rs. {totalAmount.toFixed(2)}
+            <strong>GST@18%:</strong> Rs.{" "}
+            {gst.toFixed(2)}
           </div>
           <div className="d-flex align-items-center w-100 justify-content-between">
             <div className="me-3 text-uppercase"> Mode of payment:</div>
