@@ -135,7 +135,7 @@ const TotalSale: React.FC = () => {
                       <i
                         className="fa fa-pencil"
                         onClick={() => {
-                          if (inv.productDetails.paymentStatus !== "paid") {
+                          if (inv.productDetails.paymentStatus) {
                             setIsopen(true);
                             setEditInvoiceId(inv.id);
                           }
@@ -242,6 +242,7 @@ const EditInvoice = ({
             label: invData.paymentStatus + "",
             value: invData.paymentStatus,
           }}
+          isDisabled={true}
           onChange={(val) => {
             setInvData((prev) => ({
               ...prev,
@@ -258,10 +259,21 @@ const EditInvoice = ({
           className="btn btn-success"
           onClick={() => {
             if (inv.id) {
+              const totalPending =
+                inv.productDetails.amount -
+                inv.productDetails.paidAmount -
+                invData.amount;
+              console.log(totalPending);
+              console.log(inv);
               const payload: IUpdateInvoice = {
                 id: inv.id,
                 paidAmount: invData.amount + inv.productDetails.paidAmount,
-                paymentStatus: invData.paymentStatus,
+                paymentStatus:
+                  totalPending === 0
+                    ? "paid"
+                    : totalPending === inv.productDetails.amount
+                    ? "unpaid"
+                    : "partial",
               };
               try {
                 updateInvoice(payload);
