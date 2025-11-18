@@ -3,6 +3,7 @@ import Layout from "../components/Layout/Layout";
 import styles from "./TotalSale.module.css";
 import { useInvoices } from "@/hooks/Invoice/getAllInvoice";
 import InfiniteScroll from "@/components/InfiniteScroll/InfiniteScroll";
+import { generateInvoice } from "@/services/invoice/generatepdf";
 
 const currency = new Intl.NumberFormat("en-IN", {
   style: "currency",
@@ -55,6 +56,7 @@ const TotalSale: React.FC = () => {
                 <th>Status</th>
                 <th>Remaining</th>
                 <th>Mode</th>
+                <th>View</th>
               </tr>
             </thead>
             <tbody>
@@ -95,6 +97,9 @@ const TotalSale: React.FC = () => {
                     </td>
                     <td>{remaining > 0 ? currency.format(remaining) : "-"}</td>
                     <td>{inv.productDetails.modeOfPayment}</td>
+                    <td className={styles.viewBill} onClick={()=>{
+                      generateInvoice(inv.id);
+                    }}>view</td>
                   </tr>
                 );
               })}

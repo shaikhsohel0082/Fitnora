@@ -140,3 +140,8 @@
   font-weight: 600;
 }
 
+.viewBill{
+  color:blue !important;
+  cursor: pointer;
+
+}
