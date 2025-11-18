@@ -10,6 +10,7 @@ import {
 import Select from "react-select";
 import { generateInvoice } from "@/services/invoice/generatepdf";
 import { toast } from "react-toastify";
+import { paymentOption, statusOptions } from "@/hooks/data";
 
 // Define a default/initial payment state
 const initialPaymentState: IPaymentData = {
@@ -93,19 +94,7 @@ export const BillSummary = ({
     }
   };
 
-  const paymentOption: { label: string; value: ModeOfPayment }[] = [
-    { label: "Cash", value: "cash" },
-    { label: "Online", value: "online" },
-    { label: "Card", value: "card" },
-    { label: "other", value: "other" },
-    { label: "NA", value: "na" },
-  ];
-  const statusOptions: Array<{ label: string; value: PaymentStatus }> = [
-    { label: "Paid", value: "paid" },
-    { label: "Unpaid", value: "unpaid" },
-    { label: "Partial", value: "partial" },
-  ];
-
+  
   const isButtonDisable = useMemo(() => {
     // Check if total amount is > 0 and if the required mode is selected
     if (totalAmount === 0) return true;

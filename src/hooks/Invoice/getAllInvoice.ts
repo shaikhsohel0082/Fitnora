@@ -31,7 +31,7 @@ export const useInvoices = (search?: string, filter?: PaymentStatus) => {
     },
 
     initialPageParam: 0,
-    staleTime: 1000 * 60 * 2,
+    // staleTime: 1000 * 60 * 2,
   });
 
   // 🔥 Flatten invoices from all pages
@@ -52,6 +52,7 @@ export const useInvoices = (search?: string, filter?: PaymentStatus) => {
     isLoading: query.isLoading,
     isError: query.isError,
     totalAmount:totalAmount,
-    pendingAmount:totalAmount-paidAmount
+    pendingAmount:totalAmount-paidAmount,
+    refetch:query.refetch
   };
 };
