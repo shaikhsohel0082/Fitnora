@@ -178,6 +178,8 @@ const EditInvoice = ({
     amount: number;
     paymentStatus: PaymentStatus;
   }>({ amount: 0, paymentStatus: inv.productDetails.paymentStatus });
+  const totalPending =
+    inv.productDetails.amount - inv.productDetails.paidAmount - invData.amount;
   return (
     <div className={`d-flex flex-column`}>
       <h5 className="align-self-center">{inv.invoiceNumber}</h5>
@@ -232,39 +234,15 @@ const EditInvoice = ({
           }}
         />
       </div>
-      <div className="mt-3">
-        <label htmlFor="" className="fw-bold mb-2">
-          Payment Status:
-        </label>
-        <Select
-          options={statusOptions}
-          value={{
-            label: invData.paymentStatus + "",
-            value: invData.paymentStatus,
-          }}
-          isDisabled={true}
-          onChange={(val) => {
-            setInvData((prev) => ({
-              ...prev,
-              paymentStatus: val.value,
-            }));
-          }}
-        />
-      </div>
       <div className="mt-3 w-100 d-flex justify-content-around">
         <button className="btn btn-danger" onClick={onClose}>
           Cancel
         </button>
         <button
           className="btn btn-success"
+          disabled={invData.amount===0}
           onClick={() => {
             if (inv.id) {
-              const totalPending =
-                inv.productDetails.amount -
-                inv.productDetails.paidAmount -
-                invData.amount;
-              console.log(totalPending);
-              console.log(inv);
               const payload: IUpdateInvoice = {
                 id: inv.id,
                 paidAmount: invData.amount + inv.productDetails.paidAmount,
