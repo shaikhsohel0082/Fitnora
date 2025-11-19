@@ -144,13 +144,12 @@ const Products: React.FC = () => {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Image</th>
+                 <th>HSN Number</th>
                 <th>Product Name</th>
                 <th>Units (gm)</th>
+                <th>Stock Left (kg)</th>
                 <th>MRP</th>
-                {/* <th>Selling Price</th> */}
-                <th>HSN Number</th>
+               
                 <th className={styles.actionsCol}>Actions</th>
               </tr>
             </thead>
@@ -164,15 +163,10 @@ const Products: React.FC = () => {
               ) : (
                 products?.map((p) => (
                   <tr key={p.id}>
-                    <td>{p.id}</td>
-                    <td>
-                      {p.image ? (
-                        <img src={p.image} alt={p.name} width={50} className={styles.productImg}/>
-                      ) : (
-                        "-"
-                      )}
-                    </td>
-                    <td>{p.name}</td>
+                    <td>{p.hsn_number}</td>
+                    <td >
+                    {p.name}
+                      </td>
                     <td>
                       <ul className={styles.mrpList}>
                         {p.unitMrpList?.map((item) => (
@@ -180,6 +174,7 @@ const Products: React.FC = () => {
                         ))}
                       </ul>
                     </td>
+                    <td>{p.stock}</td>
                     <td>
                       <ul className={styles.mrpList}>
                         {p.unitMrpList?.map((item) => (
@@ -187,8 +182,7 @@ const Products: React.FC = () => {
                         ))}
                       </ul>
                     </td>
-                    {/* <td>{p.selling_price}</td> */}
-                    <td>{p.hsn_number}</td>
+                  
                     <td className={styles.actionButtons}>
                       <button
                         className={styles.editBtn}
@@ -233,7 +227,7 @@ const Products: React.FC = () => {
           onClose={() => setIsModalOpen(false)}
           onSubmit={handleSave}
           initialData={editProduct ? { ...editProduct } : null}
-          title={editProduct ? "Edit Product" : "Add Product"}
+          activeState={editProduct?"edit":"add"}
         />
       </div>
     </Layout>

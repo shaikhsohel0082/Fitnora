@@ -14,8 +14,8 @@ import { paymentOption, statusOptions } from "@/hooks/data";
 
 // Define a default/initial payment state
 const initialPaymentState: IPaymentData = {
-  modeOfPayment: "cash",
-  paymentStatus: "unpaid",
+  modeOfPayment: null,
+  paymentStatus: null,
   paidAmount: 0,
 };
 

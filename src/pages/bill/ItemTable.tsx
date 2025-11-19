@@ -60,7 +60,7 @@ export const ItemTable = ({
             <th>Disc%</th>
             <th>GST%</th>
             <th>Amount</th>
-            <th></th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -140,8 +140,8 @@ export const ItemTable = ({
                 />
               </td>
               <td>{it.amount?.toFixed ? it.amount.toFixed(2) : it.amount}</td>
-              <td>
-                <button onClick={() => removeRow(idx)} className="btn btn-danger">✕</button>
+            <td>
+                <button onClick={() => removeRow(idx)} className="btn btn-danger" disabled={items?.length===1}>✕</button>
               </td>
             </tr>
           ))}

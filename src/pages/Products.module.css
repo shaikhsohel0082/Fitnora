@@ -116,3 +116,6 @@
   list-style-type: none;
   
 }
+.name{
+  max-width: 50%;
+}

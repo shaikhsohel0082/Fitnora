@@ -13,7 +13,6 @@ export interface ProductForm {
   selling_price?: string;
   stock: number;
   unitMrpList: UnitMrp[] | string;
-
 }
 
 interface Props {
@@ -21,7 +20,7 @@ interface Props {
   onClose: () => void;
   onSubmit: (data: ProductForm) => void;
   initialData?: ProductForm | null;
-  title: string;
+  activeState: "edit" | "add";
 }
 
 const ProductModal: React.FC<Props> = ({
@@ -29,17 +28,17 @@ const ProductModal: React.FC<Props> = ({
   onClose,
   onSubmit,
   initialData,
-  title,
+  activeState,
 }) => {
-  const resetData={image: undefined,
+  const resetData = {
+    image: undefined,
     name: "",
     hsn_number: "",
     selling_price: "",
     stock: 0,
     unitMrpList: [{ unit: "", mrp: "" }],
-  }
-  const [form, setForm] = useState<ProductForm>(resetData
-    );
+  };
+  const [form, setForm] = useState<ProductForm>(resetData);
 
   useEffect(() => {
     if (initialData) setForm(initialData);
@@ -75,7 +74,7 @@ const ProductModal: React.FC<Props> = ({
   };
 
   const handleSubmit = () => {
-    if (!form.name || !form.hsn_number) {
+    if (!form.name || !form.hsn_number || !form.stock) {
       alert("Please fill all required fields.");
       return;
     }
@@ -97,7 +96,7 @@ const ProductModal: React.FC<Props> = ({
     };
     onSubmit(payload);
     onClose();
-    setForm(resetData)
+    setForm(resetData);
   };
 
   const handleClose = () => {
@@ -110,10 +109,12 @@ const ProductModal: React.FC<Props> = ({
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <h2 className={styles.title}>{title}</h2>
+        <h2 className={styles.title}>
+          {activeState === "add" ? "Add Product" : "Edit Product"}
+        </h2>
 
         <div className={styles.formGrid}>
-          <label>
+          <label className="d-none">
             <span className={styles.labelText}>Image</span>
             <input
               type="file"
@@ -139,11 +140,12 @@ const ProductModal: React.FC<Props> = ({
           </label>
 
           <label>
-            <span className={styles.labelText}>Stock (gm) *</span>
+            <span className={styles.labelText}>Stock (Kg) *</span>
             <input
               type="number"
               value={form.stock}
               onChange={(e) => handleChange("stock", Number(e.target.value))}
+              disabled={activeState === "edit"}
             />
           </label>
 
@@ -160,7 +162,6 @@ const ProductModal: React.FC<Props> = ({
                     onChange={(e) =>
                       handleUnitMrpChange(index, "unit", e.target.value)
                     }
-                    
                   />
                   <input
                     type="number"
@@ -169,7 +170,6 @@ const ProductModal: React.FC<Props> = ({
                     onChange={(e) =>
                       handleUnitMrpChange(index, "mrp", e.target.value)
                     }
-                    
                   />
                   {form.unitMrpList.length > 1 && (
                     <button
